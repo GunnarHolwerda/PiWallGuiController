@@ -33,7 +33,7 @@ def print_help():
 while not approved_input:
     print("You have started the Raspberry Pi Wall Configuration Script")
     if len(sys.argv) == 1:
-       print_help()
+        print_help()
     else:
         if sys.argv[1] == "tile" and len(sys.argv) < 4:
             print("You must specify which tile is being configured (i.e. tile -a 5 for the 5th tile in the Pi Wall)")
@@ -125,9 +125,6 @@ if sys.argv[2].find('a') != -1 or sys.argv[2].find('i') != -1:
 
 # CREATE .pitile AND COPY .piwall
 if sys.argv[2].find('a') != -1 or sys.argv[2].find('y') != -1:
-    call("sudo mkdir /home/pi/scripts/", shell=True)
-    call("sudo mkdir /home/pi/scripts/piwall/", shell=True)
-    call("sudo mkdir /home/pi/scripts/piwall/videos/", shell=True)
     if sys.argv[1] == "tile":
         print("Creating .pitile and copying .piwall...")
         # Creating .pitile
@@ -138,13 +135,6 @@ if sys.argv[2].find('a') != -1 or sys.argv[2].find('y') != -1:
         # Copy piwall config, pitile, and startTile script to the directory
         call("sudo cp .piwall /home/pi", shell=True)
         call("sudo mv .pitile /home/pi", shell=True)
-    else:
-        # Copies the loopPiWall.py script to the master tile so that you can continuously run the piwall
-        call("sudo cp main.py /home/pi/scripts/piwall", shell=True)
-        call("sudo cp piwallcontroller.py /home/pi/scripts/piwall", shell=True)
-
-# Move wall.py to /home/pi/scripts so that other scripts are able to run
-call("sudo cp wall.py /home/pi/scripts/piwall", shell=True)
 
 # Configuration complete
 print("Config completed...")
