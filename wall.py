@@ -1,74 +1,74 @@
 # Network information
-master_ip = "169.254.219.10"
+master_ip = "0.0.0.0"
 
 # Wall.py for PiWall
 configs = {
     'walls': {
-        'burning_man_wall': {
-            'name': 'burning_man_wall',
+        'wall_name': {
+            'name': 'wall_name',
             'height': '270',
             'width': '1080',
-            'master_ip': '169.254.219.10'
+            'master_ip': '0.0.0.0'
         }
     },
     'num_of_tiles': 4,
     'tiles': [
         {
-            'name': 'left_1',
-            'wall': 'burning_man_wall',
+            'name': 'tile_name',
+            'wall': 'wall_name',
             'width': '270',
             'height': '270',
             'x': '0',
             'y': '0',
-            'ip': '169.254.219.5',
-            'id': 'left1'
+            'ip': '0.0.0.0',
+            'id': 'tile1'
         },
         {
-            'name': 'left_2',
-            'wall': 'burning_man_wall',
+            'name': 'tile_name',
+            'wall': 'wall_name',
             'width': '270',
             'height': '270',
             'x': '270',
             'y': '0',
-            'ip': '169.254.219.6',
-            'id': 'left2'
+            'ip': '0.0.0.0',
+            'id': 'tile2'
         },
         {
-            'name': 'right_1',
-            'wall': 'burning_man_wall',
+            'name': 'tile_name',
+            'wall': 'wall_name',
             'width': '270',
             'height': '270',
             'x': '540',
             'y': '0',
-            'ip': '169.254.219.7',
-            'id': 'right1'
+            'ip': '0.0.0.0',
+            'id': 'tile3'
         },
         {
-            'name': 'right_2',
-            'wall': 'burning_man_wall',
+            'name': 'tile_name',
+            'wall': 'wall_name',
             'width': '270',
             'height': '270',
             'x': '810',
             'y': '0',
-            'ip': '169.254.219.8',
-            'id': 'right2'
+            'ip': '0.0.0.0',
+            'id': 'tile4'
         }
     ],
     'config': [
         {
-            'name': 'burning_man_config',
+            'name': 'wall_config',
             'tile': [
                 {
-                    'id': 'left1'
+                    'id': 'tile1'
                 },
                 {
-                    'id': 'left2'
+                    'id': 'tile2'
                 },
                 {
-                    'id': 'right1'
+                    'id': 'tile3'
                 },
                 {
-                    'id': 'right2'
+                    'id': 'tile4'
                 }
             ]
         }

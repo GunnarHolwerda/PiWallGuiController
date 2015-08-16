@@ -66,11 +66,11 @@ else:
     ip_address = wall.master_ip
 
 # UPDATE and UPGRADE
-# if sys.argv[2].find('a') != -1 or sys.argv[2].find('u') != -1:
-    # print("Updating...")
-    # call("sudo apt-get update" + " -y", shell=True)
-    # print("Upgrading...")
-    # call("sudo apt-get upgrade" + " -y", shell=True)
+if sys.argv[2].find('a') != -1 or sys.argv[2].find('u') != -1:
+    print("Updating...")
+    call("sudo apt-get update" + " -y", shell=True)
+    print("Upgrading...")
+    call("sudo apt-get upgrade" + " -y", shell=True)
 
 # SET THE KEYBOARD TO US
 if sys.argv[2].find('a') != -1 or sys.argv[2].find('k') != -1:
@@ -92,21 +92,21 @@ if sys.argv[2].find('a') != -1 or sys.argv[2].find('k') != -1:
     call("sudo chown root /etc/default/keyboard", shell=True)
 
 # # INSTALL LIBAV-TOOLS, SSHPASS, XRDP on master only
-# if sys.argv[1] == "master" and (sys.argv[2].find('a') != -1 or sys.argv[2].find('c') != -1):
-#     print("Getting libav-tools...")
-#     call("sudo apt-get install libav-tools" + " -y", shell=True)
-#     print("Installing xrdp...")
-#     call("sudo apt-get install xrdp -y", shell=True)
-#     call("sudo apt-get install sshpass -y", shell=True)
+if sys.argv[1] == "master" and (sys.argv[2].find('a') != -1 or sys.argv[2].find('c') != -1):
+    print("Getting libav-tools...")
+    call("sudo apt-get install libav-tools" + " -y", shell=True)
+    print("Installing xrdp...")
+    call("sudo apt-get install xrdp -y", shell=True)
+    call("sudo apt-get install sshpass -y", shell=True)
 
 # DOWNLOAD AND INSTALL PWLIBS and PWOMXPLAYER on tiles only
 if sys.argv[1] == "tile" and (sys.argv[2].find('a') != -1 or sys.argv[2].find('c') != -1):
-    # print("Downloading pwlibs...")
-    # call("wget http://dl.piwall.co.uk/pwlibs1_1.1_armhf.deb", shell=True)
+    print("Downloading pwlibs...")
+    call("wget http://dl.piwall.co.uk/pwlibs1_1.1_armhf.deb", shell=True)
     print("dpkg pwlibs...")
     call("sudo dpkg -i /home/pi/pwlibs1_1.1_armhf.deb", shell=True)
-    # print("Downloading pwomxplayer...")
-    # call("wget http://dl.piwall.co.uk/pwomxplayer_20130815_armhf.deb", shell=True)
+    print("Downloading pwomxplayer...")
+    call("wget http://dl.piwall.co.uk/pwomxplayer_20130815_armhf.deb", shell=True)
     print("dpkg pwomxplayer...")
     call("sudo dpkg -i /home/pi/pwomxplayer*", shell=True)
     print("Removing .deb files...")
@@ -128,7 +128,6 @@ if sys.argv[2].find('a') != -1 or sys.argv[2].find('y') != -1:
     call("sudo mkdir /home/pi/scripts/", shell=True)
     call("sudo mkdir /home/pi/scripts/piwall/", shell=True)
     call("sudo mkdir /home/pi/scripts/piwall/videos/", shell=True)
-    #call("sudo cp -r videos/ /home/pi/scripts/piwall/videos/")
     if sys.argv[1] == "tile":
         print("Creating .pitile and copying .piwall...")
         # Creating .pitile
@@ -146,9 +145,6 @@ if sys.argv[2].find('a') != -1 or sys.argv[2].find('y') != -1:
 
 # Move wall.py to /home/pi/scripts so that other scripts are able to run
 call("sudo cp wall.py /home/pi/scripts/piwall", shell=True)
-
-# Create videos directory for all video files
-call("sudo mkdir /home/pi/videos/", shell=True)
 
 # Configuration complete
 print("Config completed...")

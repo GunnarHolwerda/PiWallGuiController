@@ -109,9 +109,19 @@ class Config:
         import wall
         return wall.master_ip
 
+    @staticmethod
+    def get_num_of_tiles():
+        """
+        Returns the number of tiles in the walls from wall.py
+        :rtype : int
+        :return: the number of tiles in the wall
+        """
+        import wall
+        return wall.configs['num_of_tiles']
+
 
 class PiWallController:
-    NUMBER_OF_TILES = 4
+    NUMBER_OF_TILES = Config.get_num_of_tiles()
     BASE_COMMAND_STR = "avconv -re -i {0} -vcodec copy -f avi -an udp://{1}:1234"
 
     def __init__(self):
