@@ -1,7 +1,7 @@
 __author__ = 'Gunnar'
 
 import unittest
-from piwallcontroller import *
+from piwallcontroller.piwallcontroller import *
 
 
 class TestPlaylist(unittest.TestCase):

@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 # Author: Gunnar Holwerda
-# Creation: 8/11/2015
-# Last Edit: 8/12/2015
 # GUI to control a PiWall
+
 from tkinter import *
-from piwallcontroller import PiWallController, Playlist
+from piwallcontroller.piwallcontroller import PiWallController, Playlist
 from threading import Thread
 
 
@@ -35,7 +34,10 @@ class SelectorWindow(Frame):
     def create_video_file_dropdown(self):
         videos = self.__controller.get_video_file_list()
         videos.sort()
-        self.__dropdown_selection.set(videos[0])
+        if videos:
+            self.__dropdown_selection.set(videos[0])
+        else:
+            videos.append(None)
         self.video_dropdown = OptionMenu(None, self.__dropdown_selection, *videos)
         self.video_dropdown.config(width=15)
         self.video_dropdown.grid(row=0, column=0)
@@ -92,7 +94,6 @@ class SelectorWindow(Frame):
         self.display_box.delete(self.display_box.curselection())
 
     def submit_form(self):
-        # TODO: Maybe show what playlist is currently playing in a new Listbox
         if self.__playlist.is_empty():
             return
         self.set_status_label(1)

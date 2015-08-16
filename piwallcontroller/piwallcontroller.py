@@ -7,8 +7,9 @@ import time
 from os.path import dirname
 
 
-BASE_PATH = dirname(__file__) + "/"
+BASE_PATH = dirname(dirname(__file__)) + "/"
 VIDEO_PATH = BASE_PATH + "videos/"
+print(BASE_PATH);
 
 
 class PlaylistItem:
@@ -37,7 +38,6 @@ class PlaylistItem:
 
 
 class Playlist:
-    # TODO: Add a save function so that at reboot it can read from the save file to start where it left off
     def __init__(self):
         self.__playlist = []
 
@@ -56,6 +56,11 @@ class Playlist:
         self.__playlist.pop(index[0])
 
     def is_empty(self):
+        """
+        Returns if the list is empty or not
+        :rtype : bool
+        :return true if playlist is empty, false otherwise
+        """
         return not self.__playlist
 
     def __str__(self):
@@ -86,7 +91,7 @@ class Config:
         :rtype : list
         :return: list of tiles
         """
-        import wall
+        from piwallcontroller import wall
         return wall.configs['tiles']
 
     @staticmethod
@@ -106,7 +111,7 @@ class Config:
         :rtype : str
         :return: returns the ip address of the pi
         """
-        import wall
+        from piwallcontroller import wall
         return wall.master_ip
 
     @staticmethod
@@ -116,7 +121,7 @@ class Config:
         :rtype : int
         :return: the number of tiles in the wall
         """
-        import wall
+        from piwallcontroller import wall
         return wall.configs['num_of_tiles']
 
 
@@ -180,4 +185,9 @@ class PiWallController:
             call(reboot_command.format(tile['ip']), shell=True)
 
     def get_video_file_list(self):
+        """
+        Returns a list of the video files in the video/ directory
+        :rtype  : list
+        :return: list of the video files in the videos/ directory
+        """
         return self.__video_files

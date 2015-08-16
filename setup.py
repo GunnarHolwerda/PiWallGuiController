@@ -1,9 +1,9 @@
-#Original author: Gunnar Holwerda
-#This script is made to automatically set up the configuration for a Raspberry Pi to be used in a piwall
+# Original author: Gunnar Holwerda
+# This script is made to automatically set up the configuration for a Raspberry Pi to be used in a piwall
 
 from subprocess import call
+from piwallcontroller import wall
 import sys
-import wall
 
 approved_input = False
 type_of_config = ""
@@ -60,7 +60,7 @@ if sys.argv[1] == "tile":
     tile_id = configs['tiles'][tile_num]['id']
     ip_address = configs['tiles'][tile_num]['ip']
     print("Running .piwall config...")
-    call("python dotpiwallsetup.py", shell=True)
+    call("python3 setup/dotpiwallsetup.py", shell=True)
     print(".piwall file created...")
 else:
     ip_address = wall.master_ip
