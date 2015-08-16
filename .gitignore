@@ -1,0 +1,4 @@
+.idea/
+__pycache__/
+videos/
+tests/__pycache__/
