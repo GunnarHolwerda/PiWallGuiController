@@ -1,4 +1,4 @@
 .idea/
 __pycache__/
-videos/
+videos/*
 tests/__pycache__/
