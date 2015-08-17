@@ -26,6 +26,7 @@ def print_help():
     print("k - set keyboard to us")
     print("c - install needed components")
     print("y - copy start scripts")
+    print("z - make main.py executable")
     print("h - print help screen")
     sys.exit()
 
@@ -64,6 +65,10 @@ if sys.argv[1] == "tile":
     print(".piwall file created...")
 else:
     ip_address = wall.master_ip
+
+if sys.argv[2].find('z') != -1 or sys.argv[2].find('a') != -1:
+    print("Making main.py executable")
+    call("chmod +x main.py", shell=True)
 
 # UPDATE and UPGRADE
 if sys.argv[2].find('a') != -1 or sys.argv[2].find('u') != -1:
