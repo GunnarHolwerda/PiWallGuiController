@@ -4,9 +4,9 @@
 
 from subprocess import call
 import time
-from os.path import dirname
+from os.path import dirname, abspath
 
-BASE_PATH = dirname(dirname(__file__)) + "/"
+BASE_PATH = dirname(dirname(abspath(__file__))) + "/"
 VIDEO_PATH = BASE_PATH + "videos/"
 
 

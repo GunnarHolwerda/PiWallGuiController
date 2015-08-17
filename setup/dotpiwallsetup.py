@@ -4,6 +4,11 @@
 print("Create .piwall configuration file:")
 print("Wall info:")
 
+from os.path import dirname, abspath
+import sys
+
+BASE_PATH = dirname(dirname(abspath(__file__))) + "/"
+sys.path.insert(0, BASE_PATH)
 from piwallcontroller import wall
 
 configs = wall.configs
@@ -48,7 +53,7 @@ dot_piwall.write("#Configuration\n")
 for config in configs['config']:
     dot_piwall.write("\n[" + config['name'] + "]\n")
     for x in range(0, configs['num_of_tiles']):
-        dot_piwall.write(configs['config'][0]['tile'][0]['id'] + "=" + configs['tiles'][x]['name'] + "\n")
+        dot_piwall.write(configs['config'][0]['tile'][x]['id'] + "=" + configs['tiles'][x]['name'] + "\n")
     dot_piwall.write("\n")
 
 # Close file, we are done

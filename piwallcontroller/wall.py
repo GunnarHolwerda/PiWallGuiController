@@ -81,4 +81,6 @@ replace_str = """auto lo
 iface lo inet loopback
 iface eth0 inet static
 	address {0}
+	netmask 255.255.255.0
+	up route add -net 224.0.0.0 netmask 240.0.0.0 eth0
 """
