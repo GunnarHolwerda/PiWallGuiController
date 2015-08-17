@@ -160,7 +160,7 @@ class PiWallController:
             end_time = int(time.time()) + command.get_timeout()
             while int(time.time()) < end_time and self.__stop_flag is True:
                 call(command.get_command_str(), shell=True)
-        self.__stop_flag = False
+        self.__stop_flag = True
 
     def stop_wall(self):
         self.__tiles_on = False
