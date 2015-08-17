@@ -123,6 +123,16 @@ class Config:
         from piwallcontroller import wall
         return wall.configs['num_of_tiles']
 
+    @staticmethod
+    def get_config_name():
+        """
+        Returns the first config name in wall.py
+        :rtype : str
+        :return: the first config name in the config file
+        """
+        from piwallcontroller import wall
+        return wall.configs['config'][0]['name']
+
 
 class PiWallController:
     NUMBER_OF_TILES = Config.get_num_of_tiles()
@@ -171,8 +181,8 @@ class PiWallController:
         self.__tiles_on = False
 
     def turn_on_tiles(self):
-        remote_command = "pwomxplayer --config=burning_man_config udp://{0}:1234?buffer_size=1200000B"\
-            .format(Config().load_master_ip())
+        remote_command = "pwomxplayer --config={0} udp://{1}:1234?buffer_size=1200000B"\
+            .format(Config.get_config_name(), Config().load_master_ip())
         for tile in self.__tiles:
             call("nohup sshpass -p raspberry ssh pi@{0} '{1}' > /dev/null 2>&1 &".format(tile['ip'], remote_command),
                  shell=True)
