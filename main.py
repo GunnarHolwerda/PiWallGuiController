@@ -104,9 +104,8 @@ class SelectorWindow(Frame):
         if self.__command_thread.isAlive():
             print("Stopping Wall")
             self.__controller.stop_wall()
-            self.__command_thread = Thread(target=self.__controller.run_commands, args=(self.__playlist,))
             time.sleep(1)
-
+        self.__command_thread = Thread(target=self.__controller.run_commands, args=(self.__playlist,))
         self.__command_thread.start()
 
     def update_display_box(self):
@@ -134,7 +133,12 @@ class SelectorWindow(Frame):
         else:
             Exception('Status label state {0} not supported. Try 1 or 2'.format(state))
 
+    def get_controller(self):
+        return self.__controller
+
+
 # Run the GUI
 root = Tk(className="PiWall")
-SelectorWindow(master=root)
+temp = SelectorWindow(master=root)
 root.mainloop()
+temp.get_controller().stop_wall()
