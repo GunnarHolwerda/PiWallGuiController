@@ -45,7 +45,7 @@ class TestPiWallController(unittest.TestCase):
 
     def test_build_commands(self):
         controller = PiWallController()
-        commands = controller.build_commands(self.playlist)
+        assertion_strings = []
         for i in range(0, 2):
             assertion_string = ""
             for j in range(0, controller.NUMBER_OF_TILES):
@@ -54,7 +54,12 @@ class TestPiWallController(unittest.TestCase):
                 )
                 if j < controller.NUMBER_OF_TILES - 1:
                     assertion_string += " | "
-            self.assertEqual(commands[i].get_command_str(), assertion_string)
+            assertion_strings.append(assertion_string)
+        commands = controller.build_commands(self.playlist)
+        i = 0
+        for command in commands:
+            self.assertEqual(command.get_command_str(), assertion_strings[i])
+            i += 1
 
 
 if __name__ == '__main__':

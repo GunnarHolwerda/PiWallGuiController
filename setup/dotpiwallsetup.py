@@ -4,6 +4,8 @@
 print("Create .piwall configuration file:")
 print("Wall info:")
 
+from piwallcontroller import wall
+
 configs = wall.configs
 walls = configs['walls']
 
