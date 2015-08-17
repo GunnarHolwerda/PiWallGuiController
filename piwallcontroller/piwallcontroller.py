@@ -137,7 +137,7 @@ class Config:
 
 class PiWallController:
     NUMBER_OF_TILES = Config.get_num_of_tiles()
-    BASE_COMMAND_STR = "avconv -re -i {0} -vcodec copy -f avi -an udp://{1}:1234"
+    BASE_COMMAND_STR = "avconv -re -i {0} -vcodec copy -f avi -an udp://239.0.1.23:1234"
 
     def __init__(self):
         self.__video_files = Config.load_video_files()
@@ -153,12 +153,8 @@ class PiWallController:
         """
         commands = []
         for playlist_item in playlist.get_playlist():
-            tmp_cmd_str = ""
-            for i, tile in enumerate(self.__tiles):
-                tmp_cmd_str += self.BASE_COMMAND_STR.format(playlist_item.get_video_file(), tile['ip'])
-                if i < len(self.__tiles) - 1:
-                    tmp_cmd_str += " | "
-            commands.append(Command(tmp_cmd_str, playlist_item.get_timeout()))
+            commands.append(Command(self.BASE_COMMAND_STR.format(playlist_item.get_video_file()),
+                                    playlist_item.get_timeout()))
 
         playlist.clear_playlist()
 
@@ -184,7 +180,7 @@ class PiWallController:
         self.__tiles_on = False
 
     def turn_on_tiles(self):
-        remote_command = "pwomxplayer --config={0} udp://{1}:1234?buffer_size=1200000B" \
+        remote_command = "pwomxplayer --config={0} udp://239.0.1.23:1234?buffer_size=1200000B" \
             .format(Config.get_config_name(), Config().load_master_ip())
         for tile in self.__tiles:
             call("nohup sshpass -p raspberry ssh pi@{0} '{1}' > /dev/null 2>&1 &".format(tile['ip'], remote_command),
