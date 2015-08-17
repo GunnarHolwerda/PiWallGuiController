@@ -9,7 +9,6 @@ from os.path import dirname
 
 BASE_PATH = dirname(dirname(__file__)) + "/"
 VIDEO_PATH = BASE_PATH + "videos/"
-print(BASE_PATH);
 
 
 class PlaylistItem:
