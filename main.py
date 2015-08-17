@@ -5,6 +5,7 @@
 from tkinter import *
 from piwallcontroller.piwallcontroller import PiWallController, Playlist
 from threading import Thread
+import time
 
 
 class SelectorWindow(Frame):
@@ -20,6 +21,7 @@ class SelectorWindow(Frame):
         self.__controller = PiWallController()
         self.__dropdown_selection = StringVar()
         self.__timeout_selection = StringVar()
+        self.__command_thread = None
         self.grid()
         self.create_video_file_dropdown()
         self.create_timeout_dropdown()
@@ -98,8 +100,14 @@ class SelectorWindow(Frame):
             return
         self.set_status_label(1)
         self.display_box.delete(0, END)
-        command_thread = Thread(target=self.__controller.run_commands, args=(self.__playlist,))
-        command_thread.start()
+        # If there is a thread running, we need to stop the wall, which will end the thread
+        #     if self.__command_thread:
+        #         print("Stopping Wall")
+        #         self.__controller.stop_wall()
+        #         time.sleep(1)
+
+        self.__command_thread = Thread(target=self.__controller.run_commands, args=(self.__playlist,))
+        self.__command_thread.start()
 
     def update_display_box(self):
         video_file = self.__dropdown_selection.get()

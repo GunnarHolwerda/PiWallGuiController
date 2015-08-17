@@ -6,34 +6,33 @@ from subprocess import call
 import time
 from os.path import dirname
 
-
 BASE_PATH = dirname(dirname(__file__)) + "/"
 VIDEO_PATH = BASE_PATH + "videos/"
 
 
 class PlaylistItem:
-        def __init__(self, video_file, timeout):
-            self.__video_file = video_file
-            self.__timeout = timeout
+    def __init__(self, video_file, timeout):
+        self.__video_file = video_file
+        self.__timeout = timeout
 
-        def get_timeout(self):
-            """
+    def get_timeout(self):
+        """
             Returns the timeout for the playlist item
             :rtype : int
             :return the length of the timeout in seconds
             """
-            return self.__timeout
+        return self.__timeout
 
-        def get_video_file(self):
-            """
+    def get_video_file(self):
+        """
             Returns the video file name for the playlist item
             :rtype : str
             :return the string for the video file
             """
-            return VIDEO_PATH + self.__video_file
+        return VIDEO_PATH + self.__video_file
 
-        def __str__(self):
-            return self.get_video_file()
+    def __str__(self):
+        return self.get_video_file()
 
 
 class Playlist:
@@ -62,6 +61,9 @@ class Playlist:
         """
         return not self.__playlist
 
+    def clear_playlist(self):
+        del self.__playlist[:]
+
     def __str__(self):
         return str(len(self.__playlist))
 
@@ -82,7 +84,6 @@ class Command:
 
 
 class Config:
-
     @staticmethod
     def load_tiles():
         """
@@ -159,8 +160,10 @@ class PiWallController:
                     tmp_cmd_str += " | "
             commands.append(Command(tmp_cmd_str, playlist_item.get_timeout()))
 
+        playlist.clear_playlist()
+
         return commands
-    
+
     def run_commands(self, playlist):
         if not self.__tiles_on:
             self.turn_on_tiles()
@@ -181,7 +184,7 @@ class PiWallController:
         self.__tiles_on = False
 
     def turn_on_tiles(self):
-        remote_command = "pwomxplayer --config={0} udp://{1}:1234?buffer_size=1200000B"\
+        remote_command = "pwomxplayer --config={0} udp://{1}:1234?buffer_size=1200000B" \
             .format(Config.get_config_name(), Config().load_master_ip())
         for tile in self.__tiles:
             call("nohup sshpass -p raspberry ssh pi@{0} '{1}' > /dev/null 2>&1 &".format(tile['ip'], remote_command),
@@ -190,6 +193,7 @@ class PiWallController:
 
     def reboot_pis(self):
         self.__tiles_on = False
+        self.stop_wall()
         reboot_command = "nohup sshpass -p raspberry ssh pi@{0} 'sudo reboot'"
         for tile in self.__tiles:
             call(reboot_command.format(tile['ip']), shell=True)

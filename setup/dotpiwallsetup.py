@@ -1,8 +1,6 @@
 # Original author: Gunnar Holwerda
 # This script is created to easily create the .piwall config file used for piwalls
 
-from piwallcontroller import wall
-
 print("Create .piwall configuration file:")
 print("Wall info:")
 
