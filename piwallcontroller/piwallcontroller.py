@@ -185,8 +185,9 @@ class PiWallController:
     def reboot_pis(self):
         self.__tiles_on = False
         self.stop_wall()
-        reboot_command = "nohup sshpass -p raspberry ssh pi@{0} 'sudo reboot'"
+        reboot_command = "sshpass -p raspberry ssh {0} 'sudo reboot'"
         for tile in self.__tiles:
+            print("Reboting tile with ip {0}".format(tile['ip']))
             call(reboot_command.format(tile['ip']), shell=True)
 
     def get_video_file_list(self):
