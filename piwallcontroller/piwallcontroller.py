@@ -176,10 +176,11 @@ class PiWallController:
 
     def turn_on_tiles(self):
         remote_command = "pwomxplayer --config={0} udp://239.0.1.23:1234?buffer_size=1200000B" \
-            .format(Config.get_config_name(), Config().load_master_ip())
+            .format(Config.get_config_name())
         for tile in self.__tiles:
-            call("nohup sshpass -p raspberry ssh pi@{0} '{1}' > /dev/null 2>&1 &".format(tile['ip'], remote_command),
+            call("nohup sshpass -p raspberry ssh {0} '{1}' > /dev/null 2>&1 &".format(tile['ip'], remote_command),
                  shell=True)
+            time.sleep(1)
         self.__tiles_on = True
 
     def reboot_pis(self):
