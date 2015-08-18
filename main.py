@@ -104,7 +104,7 @@ class SelectorWindow(Frame):
         if self.__command_thread.isAlive():
             print("Stopping Wall")
             self.__controller.stop_wall()
-            time.sleep(1)
+            time.sleep(3)
         self.__command_thread = Thread(target=self.__controller.run_commands, args=(self.__playlist,))
         self.__command_thread.start()
 

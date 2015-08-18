@@ -171,13 +171,8 @@ class PiWallController:
         self.__stop_flag = True
 
     def stop_wall(self):
-        self.__tiles_on = False
         self.__stop_flag = False
         call("killall avconv", shell=True)
-        for tile in self.__tiles:
-            call("nohup sshpass -p raspberry ssh pi@{0} 'killall pwomxplayer.bin' > /dev/null 2>&1 &".format(tile['ip'])
-                 , shell=True)
-        self.__tiles_on = False
 
     def turn_on_tiles(self):
         remote_command = "pwomxplayer --config={0} udp://239.0.1.23:1234?buffer_size=1200000B" \
