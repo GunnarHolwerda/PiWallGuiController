@@ -47,14 +47,7 @@ class TestPiWallController(unittest.TestCase):
         controller = PiWallController()
         assertion_strings = []
         for i in range(0, 2):
-            assertion_string = ""
-            for j in range(0, controller.NUMBER_OF_TILES):
-                assertion_string += controller.BASE_COMMAND_STR.format(
-                    self.playlist.get_playlist()[i], Config().load_tiles()[j]['ip']
-                )
-                if j < controller.NUMBER_OF_TILES - 1:
-                    assertion_string += " | "
-            assertion_strings.append(assertion_string)
+            assertion_strings.append(controller.BASE_COMMAND_STR.format(self.playlist.get_playlist()[i]))
         commands = controller.build_commands(self.playlist)
         i = 0
         for command in commands:

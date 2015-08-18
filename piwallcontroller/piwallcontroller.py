@@ -51,7 +51,7 @@ class Playlist:
         return self.__playlist
 
     def remove_playlist_item(self, index):
-        self.__playlist.pop(index[0])
+        del self.__playlist[index[0]]
 
     def is_empty(self):
         """
