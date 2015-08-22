@@ -3,9 +3,9 @@
 # GUI to control a PiWall
 
 from tkinter import *
-from piwallcontroller.piwallcontroller import PiWallController, Playlist
+from piwallcontroller.piwallcontroller import PiWallController
+from piwallcontroller.playlist import Playlist
 from threading import Thread
-import time
 
 
 class SelectorWindow(Frame):
