@@ -1,4 +1,3 @@
-from .command import Command
 from .config import Config
 from .piwallcontroller import PiWallController
 from .playlist import Playlist, PlaylistItem

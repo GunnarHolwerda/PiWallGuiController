@@ -1,11 +1,7 @@
 """
     File holding the class to control the PiWall
 """
-# Author Gunnar Holwerda
-# Creation date: 8/11/2015
-# Last edit: 8/12/2015
 
-from piwallcontroller.command import Command
 from piwallcontroller.config import Config
 from subprocess import call
 from os.path import dirname, abspath
