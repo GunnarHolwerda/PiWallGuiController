@@ -20,28 +20,13 @@ class PiWallController:
         Class that controls the PiWall
     """
     NUMBER_OF_TILES = Config.get_num_of_tiles()
-    BASE_COMMAND_STR = "avconv -re -i {0} -vcodec copy -f avi -an udp://239.0.1.23:1234"
 
     def __init__(self):
         self.__video_files = Config.load_video_files()
         self.__tiles = Config.load_tiles()
         self.__tiles_on = False
         self.__stop_flag = True
-
-    def build_commands(self, playlist):
-        """
-        Builds up the list of commands to run for the current PiWall setup
-        :rtype : list
-        :return: list of commands to be run
-        """
-        commands = []
-        for playlist_item in playlist.get_playlist():
-            commands.append(Command(self.BASE_COMMAND_STR.format(playlist_item.get_video_file()),
-                                    playlist_item.get_timeout()))
-
-        playlist.clear_playlist()
-
-        return commands
+        self.__current_video = ""
 
     def run_commands(self, playlist):
         """
@@ -49,11 +34,15 @@ class PiWallController:
         """
         if not self.__tiles_on:
             self.turn_on_tiles()
-        commands = self.build_commands(playlist)
-        for command in commands:
-            end_time = int(time.time()) + command.get_timeout()
-            while int(time.time()) < end_time and self.__stop_flag is True:
-                call(command.get_command_str(), shell=True)
+
+        for item in playlist.get_items():
+            end_time = int(time.time()) + item.get_timeout()
+            while (int(time.time()) < end_time and self.__stop_flag is True) \
+                or item.get_timeout == -1:
+                call(item.get_command(), shell=True)
+
+        playlist.clear_playlist()
+
         self.__stop_flag = True
 
     def stop_wall(self):
@@ -94,3 +83,9 @@ class PiWallController:
         :return: list of the video files in the videos/ directory
         """
         return self.__video_files
+
+    def get_current_playing_video(self):
+        """
+            Returns the current playing video
+        """
+        return self.get_current_playing_video

@@ -1,5 +1,6 @@
 # Original author: Gunnar Holwerda
-# This script is made to automatically set up the configuration for a Raspberry Pi to be used in a piwall
+# This script is made to automatically set up the configuration for a
+# Raspberry Pi to be used in a piwall
 
 from subprocess import call
 from piwallcontroller import wall
@@ -18,12 +19,13 @@ def print_help():
     print("master - configure the master pi")
     print("tile - configure a tile pi")
     print("help - print this help config")
-    print("(A number must be entered with a tile (i.e. tile 1) to specify which tile is being configured\n")
+    print("(A number must be entered with a tile (i.e. tile 1) to specify which " +
+        "tile is being configured\n")
     print("Specific Configurations (must include a type of pi m or t)")
     print("a - run all configurations")
     print("i - configure ip address")
     print("u - update and upgrade")
-    print("k - set keyboard to us")
+    print("k - set keyboard to US")
     print("c - install needed components")
     print("y - copy start scripts")
     print("z - make main.py executable")
@@ -37,7 +39,8 @@ while not approved_input:
         print_help()
     else:
         if sys.argv[1] == "tile" and len(sys.argv) < 4:
-            print("You must specify which tile is being configured (i.e. tile -a 5 for the 5th tile in the Pi Wall)")
+            print("You must specify which tile is being configured (i.e. tile -a 5 for " +
+            "the 5th tile in the Pi Wall)")
             sys.exit()
         elif sys.argv[1] == "help":
             print_help()
@@ -116,7 +119,8 @@ if sys.argv[1] == "tile" and (sys.argv[2].find('a') != -1 or sys.argv[2].find('c
     call("sudo dpkg -i /home/pi/pwomxplayer*", shell=True)
     print("Removing .deb files...")
     # Remove the .deb files to save space
-    call("sudo rm -rf /home/pi/pwlibs1_1.1_armhf.deb && sudo rm -rf /home/pi/pwomxplayer_20130815_armhf.deb", shell=True)
+    call("sudo rm -rf /home/pi/pwlibs1_1.1_armhf.deb && " +
+    "sudo rm -rf /home/pi/pwomxplayer_20130815_armhf.deb", shell=True)
 
 # SET STATIC IP ADDRESS
 if sys.argv[2].find('a') != -1 or sys.argv[2].find('i') != -1:
@@ -143,5 +147,3 @@ if sys.argv[2].find('a') != -1 or sys.argv[2].find('y') != -1:
 
 # Configuration complete
 print("Config completed...")
-print("If this is the last tile you are configuring, delete the .piwall from your USB drive")
-print("Read README.txt for instructions on how to run your piwall once all tiles and master have been configured.")

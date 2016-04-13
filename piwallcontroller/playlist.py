@@ -23,7 +23,7 @@ class Playlist:
         """
         self.__playlist.append(PlaylistItem(video_file, timeout))
 
-    def get_playlist(self):
+    def get_items(self):
         """
             Returns the list of PlaylistItems in the playlist
             :rtype : list[PlaylistItem]
@@ -62,6 +62,8 @@ class PlaylistItem:
         Class representing an item in the Playlist
     """
 
+    BASE_COMMAND_STR = "avconv -re -i {0} -vcodec copy -f avi -an udp://239.0.1.23:1234"
+
     def __init__(self, video_file, timeout):
         self.__video_file = video_file
         self.__timeout = timeout
@@ -79,8 +81,14 @@ class PlaylistItem:
             Returns the video file name for the playlist item
             :rtype : str
             :return the string for the video file
-            """
+        """
         return VIDEO_PATH + self.__video_file
+
+    def get_command(self):
+        """
+            Returns the command string that will be run to play the current video
+        """
+        return self.BASE_COMMAND_STR.format(self.__video_file)
 
     def __str__(self):
         return self.get_video_file()

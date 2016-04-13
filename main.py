@@ -19,6 +19,7 @@ class SelectorWindow(Frame):
         '1 hour ': 3600,
         '2 hours': 7200,
         '3 hours': 10800,
+        'Infinite': -1,
     }
 
     def __init__(self, master=None):
@@ -45,14 +46,17 @@ class SelectorWindow(Frame):
             Creates the dropdown to display the video files from
         """
         videos = self.__controller.get_video_file_list()
-        videos.sort()
+        for i in range(0, len(videos)):
+            videos[i] = videos[i].split('.')[0]
+
         if videos:
             self.__dropdown_selection.set(videos[0])
         else:
             videos.append(None)
+
         self.video_dropdown = OptionMenu(
             None, self.__dropdown_selection, *videos)
-        self.video_dropdown.config(width=15)
+        self.video_dropdown.config(width=10)
         self.video_dropdown.grid(row=0, column=0)
 
     def create_timeout_dropdown(self):
@@ -78,9 +82,8 @@ class SelectorWindow(Frame):
         """
             Creates the submit button
         """
-        self.submit_button = Button(text="Submit")
+        self.submit_button = Button(text="Submit", width=10)
         self.submit_button['command'] = self.submit_form
-        self.submit_button.config(width=10)
         self.submit_button.grid(row=1, column=2, pady=5)
 
     def create_add_button(self):
@@ -88,36 +91,33 @@ class SelectorWindow(Frame):
             Creates the button to add the current values in the video and timeout dropdown
             into the playlist
         """
-        self.add_button = Button(text='Add', fg='green')
+        self.add_button = Button(text='Add', fg='green', width=10)
         self.add_button['command'] = self.update_display_box
-        self.add_button.config(width=10)
         self.add_button.grid(row=1, column=0, pady=5)
 
     def create_delete_button(self):
         """
             Creates delete button to delete items from display blox
         """
-        self.delete_button = Button(text='Delete', fg='red')
+        self.delete_button = Button(text='Delete', fg='red', width=10)
         self.delete_button['command'] = self.delete_selected_item
-        self.delete_button.config(width=10)
         self.delete_button.grid(row=1, column=1, pady=5)
 
     def create_reboot_button(self):
         """
             Creates button that reboots the pi's
         """
-        self.reboot_button = Button(text='Reboot Tiles', fg='red')
+        self.reboot_button = Button(text='Reboot Tiles', fg='red', width=10)
         self.reboot_button['command'] = self.reboot_pressed
-        self.reboot_button.config(width=10)
         self.reboot_button.grid(row=1, column=3, pady=5)
 
     def create_status_label(self):
         """
             Creates label to display current status of the wall
         """
-        self.status_label = Label()
+        self.status_label = Label(relief="ridge", width=11)
         self.set_status_label(0)
-        self.status_label.grid(row=2, column=2, columnspan=2, pady=5)
+        self.status_label.grid(row=2, column=3, pady=5)
 
     def create_stop_button(self):
         """
@@ -126,7 +126,7 @@ class SelectorWindow(Frame):
         self.stop_button = Button(text='Stop Playing')
         self.set_status_label(0)
         self.stop_button['command'] = self.stop_pressed
-        self.stop_button.grid(row=2, column=0, columnspan=2, pady=5)
+        self.stop_button.grid(row=2, column=2, pady=5)
 
     def delete_selected_item(self):
         """
@@ -182,10 +182,10 @@ class SelectorWindow(Frame):
             Updates the status label to the current status of the PiWall
         """
         if state == 1:
-            self.status_label.config(text='Playing', bg='green')
+            self.status_label.config(text='Playing', fg='green')
             return True
         elif state == 0:
-            self.status_label.config(text='Not Playing', bg='red')
+            self.status_label.config(text='Not Playing', fg='red')
             return True
         else:
             Exception(
