@@ -1,3 +1,7 @@
+"""
+    File holding PiWall Config class
+"""
+
 from os.path import dirname, abspath
 
 BASE_PATH = dirname(dirname(abspath(__file__))) + "/"
@@ -5,6 +9,9 @@ VIDEO_PATH = BASE_PATH + "videos/"
 
 
 class Config:
+    """
+        Class to represent all configs for the current PiWall
+    """
     @staticmethod
     def load_tiles():
         """

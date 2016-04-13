@@ -1,3 +1,6 @@
+"""
+This is a config file that will be used to generate the .piwall file
+"""
 # Network information
 master_ip = "0.0.0.0"
 

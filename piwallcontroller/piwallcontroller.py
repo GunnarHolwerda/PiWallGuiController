@@ -1,3 +1,6 @@
+"""
+    File holding the class to control the PiWall
+"""
 # Author Gunnar Holwerda
 # Creation date: 8/11/2015
 # Last edit: 8/12/2015
@@ -13,6 +16,9 @@ VIDEO_PATH = BASE_PATH + "videos/"
 
 
 class PiWallController:
+    """
+        Class that controls the PiWall
+    """
     NUMBER_OF_TILES = Config.get_num_of_tiles()
     BASE_COMMAND_STR = "avconv -re -i {0} -vcodec copy -f avi -an udp://239.0.1.23:1234"
 
@@ -38,6 +44,9 @@ class PiWallController:
         return commands
 
     def run_commands(self, playlist):
+        """
+            Runs all necessary commands to start the tiles and then starts the master
+        """
         if not self.__tiles_on:
             self.turn_on_tiles()
         commands = self.build_commands(playlist)
@@ -48,18 +57,28 @@ class PiWallController:
         self.__stop_flag = True
 
     def stop_wall(self):
+        """
+            Stops the wall from running
+        """
         self.__stop_flag = False
 
     def turn_on_tiles(self):
+        """
+            Starts all tiles
+        """
         remote_command = "pwomxplayer --config={0} udp://239.0.1.23:1234?buffer_size=1200000B" \
             .format(Config.get_config_name())
         for tile in self.__tiles:
-            call("nohup sshpass -p raspberry ssh {0} '{1}' > /dev/null 2>&1 &".format(tile['ip'], remote_command),
-                 shell=True)
+            call("nohup sshpass -p raspberry ssh {0} '{1}' > /dev/null 2>&1 &".format(
+                tile['ip'],
+                remote_command), shell=True)
             time.sleep(1)
         self.__tiles_on = True
 
     def reboot_pis(self):
+        """
+            Reboots all tiles
+        """
         self.__tiles_on = False
         self.stop_wall()
         reboot_command = "nohup sshpass -p raspberry ssh {0} 'sudo reboot' > /dev/null 2>&1 &"

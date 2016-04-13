@@ -1,3 +1,6 @@
+"""
+    File holds all classes for the Playlist
+"""
 from os.path import dirname, abspath
 
 BASE_PATH = dirname(dirname(abspath(__file__))) + "/"
@@ -5,32 +8,49 @@ VIDEO_PATH = BASE_PATH + "videos/"
 
 
 class Playlist:
+    """
+        Class to hold the playlist of videos to be played
+    """
     def __init__(self):
         self.__playlist = []
 
     def add_playlist_item(self, video_file, timeout):
+        """
+            Adds item to the playlist
+
+            :video_file : Path to video
+            :timeout : timeout for the video in seconds
+        """
         self.__playlist.append(PlaylistItem(video_file, timeout))
 
     def get_playlist(self):
         """
-        Returns the list of PlaylistItems in the playlist
-        :rtype : list[PlaylistItem]
-        :return list of playlist items in the playlist
+            Returns the list of PlaylistItems in the playlist
+            :rtype : list[PlaylistItem]
+            :return list of playlist items in the playlist
         """
         return self.__playlist
 
     def remove_playlist_item(self, index):
+        """
+            Removes an item from the playlist at the specified index
+
+            :index : the index to remove from the playlist
+        """
         del self.__playlist[index[0]]
 
     def is_empty(self):
         """
-        Returns if the list is empty or not
-        :rtype : bool
-        :return true if playlist is empty, false otherwise
+            Returns if the list is empty or not
+            :rtype : bool
+            :return true if playlist is empty, false otherwise
         """
         return not self.__playlist
 
     def clear_playlist(self):
+        """
+            Clears the playlist
+        """
         del self.__playlist[:]
 
     def __str__(self):
@@ -38,6 +58,10 @@ class Playlist:
 
 
 class PlaylistItem:
+    """
+        Class representing an item in the Playlist
+    """
+
     def __init__(self, video_file, timeout):
         self.__video_file = video_file
         self.__timeout = timeout
