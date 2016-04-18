@@ -110,16 +110,16 @@ if sys.argv[1] == "master" and (sys.argv[2].find('a') != -1 or sys.argv[2].find(
 # DOWNLOAD AND INSTALL PWLIBS and PWOMXPLAYER on tiles only
 if sys.argv[1] == "tile" and (sys.argv[2].find('a') != -1 or sys.argv[2].find('c') != -1):
     print("Downloading pwlibs...")
-    call("wget http://dl.piwall.co.uk/pwlibs1_1.1_armhf.deb", shell=True)
+    call("wget http://dl.piwall.co.uk/pwlibs1_1.7_armhf.deb", shell=True)
     print("dpkg pwlibs...")
-    call("sudo dpkg -i /home/pi/pwlibs1_1.1_armhf.deb", shell=True)
+    call("sudo dpkg -i /home/pi/pwlibs1_1.7_armhf.deb", shell=True)
     print("Downloading pwomxplayer...")
     call("wget http://dl.piwall.co.uk/pwomxplayer_20130815_armhf.deb", shell=True)
     print("dpkg pwomxplayer...")
     call("sudo dpkg -i /home/pi/pwomxplayer*", shell=True)
     print("Removing .deb files...")
     # Remove the .deb files to save space
-    call("sudo rm -rf /home/pi/pwlibs1_1.1_armhf.deb && " +
+    call("sudo rm -rf /home/pi/pwlibs1_1.7_armhf.deb && " +
     "sudo rm -rf /home/pi/pwomxplayer_20130815_armhf.deb", shell=True)
 
 # SET STATIC IP ADDRESS
