@@ -32,11 +32,17 @@ class PiWallController:
             self.turn_on_tiles()
 
         for item in playlist.get_items():
+            print("Video: " + item.get_video_file())
+            print("Timeout: " + str(item.get_timeout()))
+            print("Command: " + item.get_command())
+            time.sleep(10)
             end_time = int(time.time()) + item.get_timeout()
-            while (int(time.time()) < end_time and self.__stop_flag is True) \
-                or item.get_timeout == -1:
+            while (int(time.time()) < end_time) or item.get_timeout() == -1:
+                if self.__stop_flag == False:
+                    break
                 call(item.get_command(), shell=True)
 
+        print("Playlist finished")
         playlist.clear_playlist()
 
         self.__stop_flag = True

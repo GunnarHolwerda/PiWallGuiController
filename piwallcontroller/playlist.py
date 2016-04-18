@@ -88,6 +88,7 @@ class PlaylistItem:
         """
             Returns the command string that will be run to play the current video
         """
+        print("Playing " + self.__video_file)
         return self.BASE_COMMAND_STR.format(self.__video_file)
 
     def __str__(self):

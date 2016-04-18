@@ -36,7 +36,7 @@ class SelectorWindow(Frame):
         self.create_display_box()
         self.create_add_button()
         self.create_delete_button()
-        self.create_submit_button()
+        self.create_play_button()
         self.create_reboot_button()
         self.create_status_label()
         self.create_stop_button()
@@ -46,8 +46,6 @@ class SelectorWindow(Frame):
             Creates the dropdown to display the video files from
         """
         videos = self.__controller.get_video_file_list()
-        for i in range(0, len(videos)):
-            videos[i] = videos[i].split('.')[0]
 
         if videos:
             self.__dropdown_selection.set(videos[0])
@@ -78,12 +76,12 @@ class SelectorWindow(Frame):
         self.display_box = Listbox(width=30, height=10)
         self.display_box.grid(row=0, column=2, columnspan=2)
 
-    def create_submit_button(self):
+    def create_play_button(self):
         """
-            Creates the submit button
+            Creates the play button
         """
-        self.submit_button = Button(text="Submit", width=10)
-        self.submit_button['command'] = self.submit_form
+        self.submit_button = Button(text="Play", width=10)
+        self.submit_button['command'] = self.play_wall
         self.submit_button.grid(row=1, column=2, pady=5)
 
     def create_add_button(self):
@@ -135,7 +133,7 @@ class SelectorWindow(Frame):
         self.__playlist.remove_playlist_item(self.display_box.curselection())
         self.display_box.delete(self.display_box.curselection())
 
-    def submit_form(self):
+    def play_wall(self):
         """
             Submits ths form to be played on the pi's
         """
