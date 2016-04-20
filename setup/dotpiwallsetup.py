@@ -1,5 +1,6 @@
-# Original author: Gunnar Holwerda
-# This script is created to easily create the .piwall config file used for piwalls
+"""
+    This script creates the .piwall file based off of the wall.py file
+"""
 
 print("Create .piwall configuration file:")
 print("Wall info:")
